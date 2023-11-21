@@ -19,6 +19,11 @@ class GameSystem
     int screenWidth;
     int screenHeight;
 
+    Mix_Chunk* testSound = NULL;
+    Mix_Music* testMusic = NULL;
+
+    bool isPolyPhonicSound = true;
+
     public:
 
     SDL_Renderer* renderer = NULL;
@@ -33,6 +38,10 @@ class GameSystem
     void render();
     void loadAssets();
     void collision();
+    void playSound(std::string _sound);
+    void playMusic(std::string _song);
+    void pauseMusic();
+    void stopMusic();
     
 
 };

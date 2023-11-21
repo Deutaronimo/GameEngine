@@ -19,6 +19,16 @@ GameSystem::GameSystem()
     SDL_SetRenderDrawColor(renderer, 100, 149, 237, 0xff);
     screenSurface = SDL_GetWindowSurface(window);
 
+    //Initialize SDL_mixer
+    Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 2048 ) ;
+
+
+    // Grafx and sound assets.
+    //Mix_Chunk* testSound ;
+    //Mix_Music* testMusic ;
+    
+    loadAssets();
+
 }
 
 SDL_Texture* GameSystem::getTexture(int _name)
@@ -38,6 +48,22 @@ void GameSystem::update()
 
 void GameSystem::loadAssets()
 {
+    //Load all music files.
+    testMusic = Mix_LoadMUS( "assets/sound/testMusic.ogg" );
+    if (testMusic == NULL)
+    {
+        std::cout << "Failed tp load music file." << std::endl;
+    }
+
+    //Load all sound FX.
+    testSound = Mix_LoadWAV( "assets/sound/testSound.wav" );
+    if (testSound == NULL)
+    {
+        std::cout << "Failed tp load sound file." << std::endl;
+    }
+
+    // Load all textures.
+
 
 }
 
@@ -58,4 +84,24 @@ void GameSystem::run()
     update();
     collision();
     render();
+}
+
+void GameSystem::playSound(std::string _sound)
+{
+    // 
+}
+
+void GameSystem::playMusic(std::string _song)
+{
+    //
+}
+
+void GameSystem::pauseMusic()
+{
+    // Pause currently playing song.
+}
+
+void GameSystem::stopMusic()
+{
+    // Stop currently playing music;
 }
