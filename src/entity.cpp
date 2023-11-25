@@ -43,3 +43,16 @@
    {
       return NULL;
    }
+
+   void Entity::setPLayerControlled()
+   {
+      isUnderPlayerControl = true;
+   }
+
+   void Entity::setRect(float _x, float _y, float _h, float _w)
+   {
+      rect.x = _x;
+      rect.y = _y;
+      rect.h = _h;
+      rect.w = _w;
+   }

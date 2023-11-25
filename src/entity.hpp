@@ -16,12 +16,16 @@ class Entity
     std::string tag = "none";
 
     public:
+    
+
 
     Entity();
     virtual void update();
     virtual void render(SDL_Renderer* _renderer);
-    virtual std::string getTag();
-    virtual void setTag(std::string _tag);
+    std::string getTag();
+    void setTag(std::string _tag);
+    void setPLayerControlled();
+    void setRect(float _x, float _y, float _h, float _w);
     SDL_Rect getRect();
     SDL_Rect getLastRect();
     SDL_Texture* getTexture();

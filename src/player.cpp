@@ -17,5 +17,6 @@ void Player::update()
 
 void Player::render(SDL_Renderer* _renderer)
 {
-
+    
 }
+

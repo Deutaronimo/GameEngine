@@ -11,18 +11,20 @@ class GameSystem
 {
     private:
 
-    std::vector<Entity*>entityBatch;
-    std::vector<Entity*>destroyBatch;
+
     
     int screenPosition_x;
     int screenPosition_y;
     int screenWidth;
     int screenHeight;
-
+    int musicVolume = 128;
+    int soundVolume = 128;
+    
     Mix_Chunk* testSound = NULL;
     Mix_Music* testMusic = NULL;
 
     bool isPolyPhonicSound = true;
+    bool isPaused = false;
 
     public:
 
@@ -30,9 +32,14 @@ class GameSystem
     SDL_Window*   window   = NULL;
     SDL_Surface*  screenSurface = NULL;
 
+    std::vector<Entity*>entityBatch;
+    std::vector<Entity*>destroyBatch;
+
+
     GameSystem();
     SDL_Texture* getTexture(int _name);
     void instantiate(int _entity);
+    void instantiate(Entity* _entity);
     void run();
     void update();
     void render();
@@ -40,8 +47,11 @@ class GameSystem
     void collision();
     void playSound(std::string _sound);
     void playMusic(std::string _song);
+    void demo();
     void pauseMusic();
+    void unpauseMusic();
     void stopMusic();
+    void quit();
     
 
 };

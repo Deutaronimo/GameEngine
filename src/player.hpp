@@ -13,6 +13,7 @@ class Player : public Entity
     Player();
     void update() override;
     void render(SDL_Renderer* _renderer) override;
+    
 
 
 };

@@ -13,12 +13,15 @@ int main()
 {
 
    GameSystem gameSystem;
+   gameSystem.demo();
    
    while(true)
    {
       gameSystem.run();
       
    }
+
+   gameSystem.quit();
 
    cout << "All ok ..." << endl;
    return 0;
