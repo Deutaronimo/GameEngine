@@ -35,6 +35,10 @@ class GameSystem
 
     public:
 
+    int FPS = 60;
+
+    Uint32 FRAMETIMESTART;
+
     SDL_Renderer* renderer = NULL;
     SDL_Window*   window   = NULL;
     SDL_Surface*  screenSurface = NULL;

@@ -1,6 +1,7 @@
 #include<iostream>
 #include<string>
 #include<vector>
+#include<time.h>
 #include<SDL2/SDL.h>
 #include<SDL2/SDL_image.h>
 #include<SDL2/SDL_mixer.h>
@@ -15,8 +16,6 @@ GameSystem::GameSystem()
     screenWidth      = 640;
     screenHeight     = 480;
 
-    
-
     SDL_Init(SDL_INIT_EVERYTHING);
     window = SDL_CreateWindow("Title", screenPosition_x, screenPosition_y, screenWidth, screenHeight, SDL_WINDOW_SHOWN);
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
@@ -30,6 +29,8 @@ GameSystem::GameSystem()
     SDL_Surface* demoBackgroundSurface = NULL;
     SDL_Texture* demoBackgroundTexture = NULL;
     
+    // Randomize the randomness.
+    srand(time(NULL));
 
     loadAssets();
 
@@ -99,7 +100,7 @@ void GameSystem::loadAssets()
     demoBackgroundSurface = IMG_Load("assets/grafx/background.png");
     demoBackgroundTexture = SDL_CreateTextureFromSurface(renderer, demoBackgroundSurface);
 
-    demoPlayerSurface = IMG_Load("assets/grafx/test.png");
+    demoPlayerSurface = IMG_Load("assets/grafx/test2.png");
     demoPlayerTexture = SDL_CreateTextureFromSurface(renderer, demoPlayerSurface);
 
     // Free up any surfaces right away.
@@ -135,9 +136,17 @@ void GameSystem::render()
 // Main game loop.
 void GameSystem::run()
 {
+    FRAMETIMESTART = SDL_GetTicks();
+
     update();
     collision();
     render();
+
+    // FPS Check and maintainer.
+    if (1000 / FPS > SDL_GetTicks() - FRAMETIMESTART)
+    {
+        SDL_Delay(1000 / FPS - (SDL_GetTicks() - FRAMETIMESTART));
+    }
 }
 
 void GameSystem::playSound(std::string _sound)
@@ -164,7 +173,7 @@ void GameSystem::demo()
     // Create a player entity.
     Player* player = new Player;
     player->setTag("player");
-    player->setRect(320,256,32,32);
+    player->setRect(320,364,64,64);
     player->setPLayerControlled();
     player->setTexture(getTexture("demoplayer"));
     entityBatch.push_back(player);
@@ -192,7 +201,7 @@ void GameSystem::stopMusic()
     Mix_HaltMusic();
 }
 
-//
+
 void GameSystem::quit()
 {
     //sound
