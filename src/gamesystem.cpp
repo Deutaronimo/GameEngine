@@ -10,8 +10,8 @@
 
 GameSystem::GameSystem()
 {
-    screenPosition_x = 100;
-    screenPosition_y = 100;
+    screenPosition_x = 0;
+    screenPosition_y = 0;
     screenWidth      = 640;
     screenHeight     = 480;
 
@@ -26,14 +26,28 @@ GameSystem::GameSystem()
     //Initialize SDL_mixer
     Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 2048 ) ;
 
-    // Load grafx, sound and music assets.    
+    // Load grafx, sound and music assets.  
+    SDL_Surface* demoBackgroundSurface = NULL;
+    SDL_Texture* demoBackgroundTexture = NULL;
+    
+
     loadAssets();
 
 }
 
 // Gets the requested texture if its loaded. 
-SDL_Texture* GameSystem::getTexture(int _name)
+SDL_Texture* GameSystem::getTexture(std::string _name)
 {
+    if (_name == "demobackground")
+    {
+        return demoBackgroundTexture;
+    }
+
+    if (_name == "demoplayer")
+    {
+        return demoPlayerTexture;
+    }
+    
     return NULL;
 }
 
@@ -81,8 +95,17 @@ void GameSystem::loadAssets()
     }
 
     // Load all textures.
+    // Demo background.
+    demoBackgroundSurface = IMG_Load("assets/grafx/background.png");
+    demoBackgroundTexture = SDL_CreateTextureFromSurface(renderer, demoBackgroundSurface);
 
+    demoPlayerSurface = IMG_Load("assets/grafx/test.png");
+    demoPlayerTexture = SDL_CreateTextureFromSurface(renderer, demoPlayerSurface);
 
+    // Free up any surfaces right away.
+    SDL_FreeSurface(demoBackgroundSurface);
+    SDL_FreeSurface(demoPlayerSurface);
+    
 }
 
 void GameSystem::collision()
@@ -95,7 +118,6 @@ void GameSystem::collision()
 void GameSystem::render()
 {
     SDL_RenderClear(renderer);
-    SDL_RenderPresent(renderer);
 
     // Render the entity batch
     if (!entityBatch.empty())
@@ -105,6 +127,8 @@ void GameSystem::render()
             entity->render(renderer);
         }
     }
+
+    SDL_RenderPresent(renderer);
     
 }
 
@@ -118,9 +142,8 @@ void GameSystem::run()
 
 void GameSystem::playSound(std::string _sound)
 {
-    if (_sound == "test"){Mix_PlayChannel(-1, testSound, 0);}
+    if (_sound == "test"){Mix_PlayChannel(-1, testSound, 0);} 
 
-    
 }
 
 void GameSystem::playMusic(std::string _song)
@@ -134,13 +157,16 @@ void GameSystem::demo()
     // Create a background picture.
     Entity* background = new Entity;
     background->setTag("background");
-    background->setRect(0, 0, screenWidth, screenHeight);
+    background->setRect(0, 0, screenHeight, screenWidth);
+    background->setTexture(getTexture("demobackground"));
     entityBatch.push_back(background);
     
     // Create a player entity.
     Player* player = new Player;
     player->setTag("player");
+    player->setRect(320,256,32,32);
     player->setPLayerControlled();
+    player->setTexture(getTexture("demoplayer"));
     entityBatch.push_back(player);
 
     

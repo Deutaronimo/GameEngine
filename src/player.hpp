@@ -14,6 +14,7 @@ class Player : public Entity
     void update() override;
     void render(SDL_Renderer* _renderer) override;
     
+    
 
 
 };

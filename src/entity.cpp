@@ -16,7 +16,7 @@
 
    void Entity::render(SDL_Renderer* _renderer)
    {
-      //
+      SDL_RenderCopy(_renderer, texture,NULL, &rect);
    }
 
    std::string Entity::getTag()
@@ -55,4 +55,9 @@
       rect.y = _y;
       rect.h = _h;
       rect.w = _w;
+   }
+
+   void Entity::setTexture(SDL_Texture* _texture)
+   {
+      texture = _texture;
    }

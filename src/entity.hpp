@@ -5,17 +5,16 @@
 
 class Entity
 {
-    private:
-
-    SDL_Rect rect;
-    SDL_Rect lastRect;
+    public:
+    
     SDL_Texture* texture = NULL;
     int id = 0;
     bool isDestroyed    = false;
     bool isUnderPlayerControl = false;
     std::string tag = "none";
 
-    public:
+    SDL_Rect rect;
+    SDL_Rect lastRect;
     
 
 
@@ -23,6 +22,7 @@ class Entity
     virtual void update();
     virtual void render(SDL_Renderer* _renderer);
     std::string getTag();
+    void setTexture(SDL_Texture* _texture);
     void setTag(std::string _tag);
     void setPLayerControlled();
     void setRect(float _x, float _y, float _h, float _w);

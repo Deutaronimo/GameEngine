@@ -23,6 +23,13 @@ class GameSystem
     Mix_Chunk* testSound = NULL;
     Mix_Music* testMusic = NULL;
 
+    SDL_Surface* demoBackgroundSurface = NULL;
+    SDL_Texture* demoBackgroundTexture = NULL;
+
+    SDL_Surface* demoPlayerSurface = NULL;
+    SDL_Texture* demoPlayerTexture = NULL;
+    
+
     bool isPolyPhonicSound = true;
     bool isPaused = false;
 
@@ -37,7 +44,7 @@ class GameSystem
 
 
     GameSystem();
-    SDL_Texture* getTexture(int _name);
+    SDL_Texture* getTexture(std::string _name);
     void instantiate(int _entity);
     void instantiate(Entity* _entity);
     void run();
