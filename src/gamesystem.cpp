@@ -39,17 +39,14 @@ GameSystem::GameSystem()
 // Gets the requested texture if its loaded. 
 SDL_Texture* GameSystem::getTexture(std::string _name)
 {
-    if (_name == "demobackground")
-    {
-        return demoBackgroundTexture;
-    }
+    if (_name == "demobackground") { return demoBackgroundTexture;}
 
-    if (_name == "demoplayer")
-    {
-        return demoPlayerTexture;
-    }
+    if (_name == "demoplayer") { return demoPlayerTexture;}
+
+    if (_name == "skull") { return skullTexture;}
     
-    return NULL;
+    // if there is no texture match, return a default texture.
+    return defaultTexture;
 }
 
 // Creates and adds a new entity to the render batch.
@@ -95,18 +92,23 @@ void GameSystem::loadAssets()
         std::cout << "Failed tp load sound file." << std::endl;
     }
 
-    // Load all textures.
-    // Demo background.
+    // Load all art. Create texture then free surface for each.
     demoBackgroundSurface = IMG_Load("assets/grafx/background.png");
     demoBackgroundTexture = SDL_CreateTextureFromSurface(renderer, demoBackgroundSurface);
+    SDL_FreeSurface(demoBackgroundSurface);
 
     demoPlayerSurface = IMG_Load("assets/grafx/test2.png");
     demoPlayerTexture = SDL_CreateTextureFromSurface(renderer, demoPlayerSurface);
-
-    // Free up any surfaces right away.
-    SDL_FreeSurface(demoBackgroundSurface);
     SDL_FreeSurface(demoPlayerSurface);
-    
+
+    defaultSurface = IMG_Load("assets/grafx/default.png");
+    defaultTexture = SDL_CreateTextureFromSurface(renderer, defaultSurface);
+    SDL_FreeSurface(defaultSurface);
+
+    skullSurface = IMG_Load("assets/grafx/skull.png");
+    skullTexture = SDL_CreateTextureFromSurface(renderer, skullSurface);
+    SDL_FreeSurface(skullSurface);    
+
 }
 
 void GameSystem::collision()
@@ -175,7 +177,7 @@ void GameSystem::demo()
     player->setTag("player");
     player->setRect(320,364,64,64);
     player->setPLayerControlled();
-    player->setTexture(getTexture("demoplayer"));
+    player->setTexture(getTexture("demoPlayer"));
     entityBatch.push_back(player);
 
     

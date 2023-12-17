@@ -7,11 +7,15 @@ class Entity
 {
     public:
     
+    SDL_Event event;
     SDL_Texture* texture = NULL;
     int id = 0;
     bool isDestroyed    = false;
     bool isUnderPlayerControl = false;
     std::string tag = "none";
+
+    float speed_x ;
+    float speed_y ;
 
     SDL_Rect rect;
     SDL_Rect lastRect;

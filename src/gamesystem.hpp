@@ -11,8 +11,6 @@ class GameSystem
 {
     private:
 
-
-    
     int screenPosition_x;
     int screenPosition_y;
     int screenWidth;
@@ -20,14 +18,24 @@ class GameSystem
     int musicVolume = 128;
     int soundVolume = 128;
     
+    // Sound and music.
     Mix_Chunk* testSound = NULL;
     Mix_Music* testMusic = NULL;
 
+    // Textures.
     SDL_Surface* demoBackgroundSurface = NULL;
     SDL_Texture* demoBackgroundTexture = NULL;
 
+    SDL_Surface* defaultSurface = NULL;
+    SDL_Texture* defaultTexture = NULL;
+
+    SDL_Surface* skullSurface = NULL;
+    SDL_Texture* skullTexture = NULL;
+
     SDL_Surface* demoPlayerSurface = NULL;
     SDL_Texture* demoPlayerTexture = NULL;
+    
+    
     
 
     bool isPolyPhonicSound = true;
@@ -35,7 +43,7 @@ class GameSystem
 
     public:
 
-    int FPS = 60;
+    const int FPS = 60;
 
     Uint32 FRAMETIMESTART;
 
